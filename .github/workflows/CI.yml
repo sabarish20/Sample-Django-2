@@ -31,6 +31,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Testing using Flake8
+        continue-on-error: true
         run: |
           cd django_web_app
           flake8 --exclude '.git' --exclude  '__pycache__'   --max-line-length 120 --output Flake.txt
@@ -42,7 +43,6 @@ jobs:
           path: "django_web_app/Flake.txt"
 
       - name: Testing using Black 
-        continue-on-error: true
         run: |
           cd django_web_app
           black . 

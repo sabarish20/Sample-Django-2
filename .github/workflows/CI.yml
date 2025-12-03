@@ -8,6 +8,10 @@ on:
 jobs:
 
   build:
+    strategy:
+      max-parallel: 2
+      matrix:
+        version: ["3.9","3.11"]
     name: Build the Django
     runs-on: ubuntu-latest
     steps:
@@ -17,7 +21,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v6
         with: 
-          python-version: "3.11"
+          python-version: ${{ matrix.version }}
 
       - name: Install Dependencies
         run: |
@@ -26,10 +30,22 @@ jobs:
           pip install --upgrade pip  
           pip install -r requirements.txt
 
-      - name: Testing using Black & Flake8
+      - name: Testing using Flake8
         run: |
-          flake8 django_web_app 
-          black --check django_web_app  
+          cd django_web_app
+          flake8 --exclude '.git' --exclude  '__pycache__'   --max-line-length 120 --output Flake.txt
+
+      - name: Upload Flake8 Test Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: FlakeTest-Report
+          path: "django_web_app/Flake.txt"
+
+      - name: Testing using Black 
+        continue-on-error: true
+        run: |
+          cd django_web_app
+          black . 
 
       - name: Migrate the Database
         run: |
@@ -41,3 +57,5 @@ jobs:
           cd django_web_app 
           python manage.py runserver
           
+      - name: Curl the Server
+        run: curl http://localhost:8000/

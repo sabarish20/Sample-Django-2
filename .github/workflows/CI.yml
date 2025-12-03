@@ -11,7 +11,7 @@ jobs:
     strategy:
       max-parallel: 2
       matrix:
-        version: ["3.9","3.11"]
+        version: ["3.11"]
     name: Build the Django
     runs-on: ubuntu-latest
     steps:

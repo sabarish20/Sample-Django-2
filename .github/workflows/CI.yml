@@ -20,7 +20,10 @@ jobs:
           python-version: "3.11"
 
       - name: Install Dependencies
-        run: pip install --upgrade pip && pip install -r requirements.txt
+        run: |
+          pwd
+          pip install --upgrade pip  
+          pip install -r requirements.txt
 
       - name: Testing using Black & Flake8
         run: |

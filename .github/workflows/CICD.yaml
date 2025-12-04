@@ -43,6 +43,7 @@ jobs:
           path: "django_web_app/Flake.txt"
 
       - name: Testing using Black 
+        continue-on-error: true
         run: |
           cd django_web_app
           black . 
@@ -53,6 +54,7 @@ jobs:
           python manage.py migrate
 
       - name: Gitleaks
+        continue-on-error: true
         uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

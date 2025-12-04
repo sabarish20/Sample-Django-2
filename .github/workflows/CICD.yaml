@@ -48,11 +48,6 @@ jobs:
           cd django_web_app
           black . 
 
-      - name: Migrate the Database
-        run: |
-          cd django_web_app 
-          python manage.py migrate
-
       - name: Gitleaks
         continue-on-error: true
         uses: gitleaks/gitleaks-action@v2

@@ -27,13 +27,9 @@ jobs:
           flake8 django_web_app 
           black --check django_web_app  
 
-      - name: Migrate the Database
-        run: |
-          cd django_web_app 
-          python manage.py migrate
+      - name: Git Leaks 
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Run the Server
-        run: | 
-          cd django_web_app 
-          python manage.py runserver
           

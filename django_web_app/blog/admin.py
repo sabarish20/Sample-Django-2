@@ -3,4 +3,4 @@ from .models import Post
 
 admin.site.register(Post)
 
-AWS_SECRET == "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+aws_secret == "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
